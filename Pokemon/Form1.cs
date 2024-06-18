@@ -499,6 +499,10 @@ namespace Pokemon
             obstacleHitBoxSpawn();
             chestSpawn();
 
+
+            //player1.X = 578;
+            //player1.Y = 300;
+
             gameLoop.Enabled = true;
             this.Focus();
         }
@@ -915,9 +919,9 @@ namespace Pokemon
                     bossCurrentHealthX -= 100;
                     battleBossHealthBar = new Rectangle(bossCurrentHealthX, 100, (bossHealth / 5), 20);
                     bossHealth = 2000;
-                    bossAtk = 1100;
-                    bossSpAtk = 1500;
-                    bossHeal = 800;
+                    bossAtk = 1000;
+                    bossSpAtk = 1300;
+                    bossHeal = 500;
                     break;
             }
         }
@@ -1083,6 +1087,9 @@ namespace Pokemon
 
             battleBoss.Visible = false;
             battlePokemon.Location = new Point (this.Width / 2, this.Height / 2);
+            pTurn.Visible = false;  
+            cooldownNotice.Visible = false; 
+
             gameState = "End Screen";
         }
 
@@ -1090,19 +1097,20 @@ namespace Pokemon
         {
             if (gameState == "Battle Screen" && pokemonHealth <= 0)
             {
+                pokemonLvChecking();
+                InitializeBattleScreen();
                 pokemonHealth = 0;
-
                 pokemonHealthLabel.Text = "0";
                 resultBattleLabel.Text = "You Loss";
                 Thread.Sleep(500);
                 resultBattleLabel.Text = " ";
                 gameLoop.Enabled = false;
-                pokemonLvChecking();
                 InitializeMainScreen();
             }
 
             if (gameState == "Battle Screen" && bossHealth <= 0 && bossCounter == 1)
             {
+                pokemonLvChecking();
                 bossHealth = 0;
                 bossHealthLabel.Text = "0";
                 resultBattleLabel.Text = "Next Boss";
@@ -1116,6 +1124,7 @@ namespace Pokemon
 
             if (gameState == "Battle Screen" && bossHealth <= 0 && bossCounter == 2)
             {
+                pokemonLvChecking();
                 bossHealth = 0;
                 bossHealthLabel.Text = "0";
                 battleBoss.Image = boss3;
@@ -1128,6 +1137,7 @@ namespace Pokemon
 
             if (gameState == "Battle Screen" && bossHealth <= 0 && bossCounter == 3)
             {
+                pokemonLvChecking();
                 bossHealth = 0;
                 bossHealthLabel.Text = "0";
                 battleBossHealthBar = new Rectangle(350, 100, 0, 20);
@@ -1168,10 +1178,7 @@ namespace Pokemon
 
                 e.Graphics.DrawImage(playerHouse, house);
                 e.Graphics.DrawString($"{playerName}  LV:{pokemonLv}\nCoins:{playerMoney}", drawFont, blackBrush, 20, 30);
-                for(int i = 0; i < treesHitBoxList.Count; i++)
-                {
-                    e.Graphics.FillRectangle(blackBrush, treesHitBoxList[i]);
-                }
+
             }
 
             else if (gameState == "Arena Screen")
@@ -1225,15 +1232,12 @@ namespace Pokemon
                 {
                     e.Graphics.DrawString("Pokemon Maxed", drawFont, blackBrush, 550, 283);
                     e.Graphics.DrawString($"Lvl: Max", drawFont, blackBrush, 505, 50);
-
                 }
             }
             else if(gameState == "Battle Screen")
             {
                 e.Graphics.FillRectangle(redBrush, battleBossHealthBar);
                 e.Graphics.FillRectangle(redBrush, battlePokemonHealthBar);
-
-
             }
             else if(gameState == "End Screen")
             {

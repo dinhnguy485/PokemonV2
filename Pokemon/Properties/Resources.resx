@@ -253,4 +253,28 @@
   <data name="chest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\coins.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="attackSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\attackSound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="grassFootstep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grassFootstep.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="healSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\healSound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="levelUpSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\levelUpSound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="normalFootstep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\normalFootstep.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="openDoor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\openDoor.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="spAttackSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\spAttackSound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tree" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tree.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

@@ -290,5 +290,29 @@
   <ItemGroup>
     <None Include="Resources\fightingMusic.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\normalFootstep.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tree.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spAttackSound.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attackSound.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grassFootstep.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\healSound.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\levelUpSound.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\openDoor.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

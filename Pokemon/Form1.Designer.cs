@@ -107,6 +107,7 @@
             this.battlePokemon.Name = "battlePokemon";
             this.battlePokemon.Size = new System.Drawing.Size(263, 235);
             this.battlePokemon.TabIndex = 46;
+            this.battlePokemon.Text = "Ballz";
             // 
             // battleBoss
             // 
