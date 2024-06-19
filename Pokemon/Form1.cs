@@ -11,14 +11,34 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.Media;
+using System.IO;
 
 namespace Pokemon
 {
-    //Add a Sign 
-    //hit box smaller
-    //Spawn inside after evolve screen
+    //Add Play again button 
+    //Add Exit button
+
     public partial class Form1 : Form
     {
+        System.Windows.Media.MediaPlayer normalAtkSound;
+        System.Windows.Media.MediaPlayer chestCollectSound;
+        System.Windows.Media.MediaPlayer grassStepSound;
+        System.Windows.Media.MediaPlayer healSound;
+        System.Windows.Media.MediaPlayer levelUpSound;
+        System.Windows.Media.MediaPlayer normalStepSound;
+        System.Windows.Media.MediaPlayer openDoorSound;
+        System.Windows.Media.MediaPlayer spAtkSound;
+        System.Windows.Media.MediaPlayer treeHitSound;
+
+
+
+
+
+
+
+
         //Player
         Rectangle player1 = new Rectangle(400, 250, 35, 40);
 
@@ -72,7 +92,6 @@ namespace Pokemon
         Image playerPokemon;
         Image winImg = Properties.Resources.winnerImg;
 
-
         Image evolveScreenBg = Properties.Resources.evolveScreen;
 
         Rectangle actualChest = new Rectangle(20, 50, 30, 20);
@@ -105,6 +124,8 @@ namespace Pokemon
         //Evolve Pokemon Pic Position
         Rectangle pokemonPicEvolve = new Rectangle(80, 80, 180, 180);
         String actualPokemon;
+
+
 
         //Player Stats
         string playerName;
@@ -161,8 +182,8 @@ namespace Pokemon
             evolveButton.Visible = false;
             exitEvolve.Visible = false;
             gameLoop.Enabled = false;
-
         }
+
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -179,6 +200,11 @@ namespace Pokemon
                     break;
                 case Keys.D:
                     dPressed = true;
+                    break;
+                case Keys.Space:
+                    if (gameState == "End Screen")
+                    {
+                    }
                     break;
             }
         }
@@ -294,6 +320,7 @@ namespace Pokemon
             }
         }
 
+
         private void obstacleHitBoxSpawn()
         {
             Rectangle treeHitBox1 = new Rectangle(48, 119, 45, 27);
@@ -391,8 +418,6 @@ namespace Pokemon
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            //Form1.ChangeScreen(this, new BattleScreen());
-
             InitializePokemonChoosingScreen();
             gameState = "Choosing Screen";
             startButton.Visible = false;
@@ -420,12 +445,11 @@ namespace Pokemon
         }
 
         private void continueButton_Click(object sender, EventArgs e)
-        {
+        {   
             InitializeMainScreen();
             InitializeGameScreen();
             gameLoop.Enabled = true;
             chestSpawn();
-
 
             playerName = playerNameInput.Text;
             if (pokemonPreview.Image == pokemonsList[0])
@@ -451,6 +475,15 @@ namespace Pokemon
 
             }
             this.Focus();
+        }
+
+        public void InitializeMenuScreen()
+        {
+            pokemonLv = 0;
+            playerMoney = 0;
+
+
+
         }
 
         public void InitializeGameScreen()
@@ -492,6 +525,11 @@ namespace Pokemon
             pTurn.Visible = false;
             cooldownNotice.Visible = false;
             gameState = "Main Screen";
+            ///////////////////////////////
+            exitButton.Visible = false;
+            playAgainLabel.Visible = false;
+            startButton.Visible = false;
+
 
             this.BackgroundImage = Properties.Resources.bg;
             obstacleSpawn();
@@ -499,13 +537,38 @@ namespace Pokemon
             obstacleHitBoxSpawn();
             chestSpawn();
 
-
             //player1.X = 578;
             //player1.Y = 300;
 
             gameLoop.Enabled = true;
             this.Focus();
         }
+
+        //public void playNormalAtkSound()
+        //{
+        //    normalAtkSound = new System.Windows.Media.MediaPlayer();
+        //    normalAtkSound.Open(new Uri(Application.StartupPath + "/Resources/attackSound.wav"));
+        //    normalAtkSound.Play();
+        //}
+
+        //public void playChestSound()
+        //{
+        //    chestCollectSound = new System.Windows.Media.MediaPlayer();
+        //    normalAtkSound.Open(new Uri(Application.StartupPath + "/Resources/chest.wav"));
+        //    normalAtkSound.Play();
+        //}
+        //public void playGrassSound()
+        //{
+        //    normalAtkSound = new System.Windows.Media.MediaPlayer();
+        //    normalAtkSound.Open(new Uri(Application.StartupPath + "/Resources/attackSound.wav"));
+        //    normalAtkSound.Play();
+        //}
+        //public void healSound()
+        //{
+        //    normalAtkSound = new System.Windows.Media.MediaPlayer();
+        //    normalAtkSound.Open(new Uri(Application.StartupPath + "/Resources/attackSound.wav"));
+        //    normalAtkSound.Play();
+        //}
 
         public void InitializeEvolveScreen()
         {
@@ -697,7 +760,6 @@ namespace Pokemon
                     player1.Y -= player1Speed;
                 }
             }
-
         }
 
         private void pokemonLvChecking()
@@ -824,16 +886,19 @@ namespace Pokemon
                     pokemonSpAtk = 909;
                     pokemonHeal = 970;
                     break;
-
+                case 21:
+                    pokemonHealth = 728;
+                    pokemonAtk = 785;
+                    pokemonSpAtk = 909;
+                    pokemonHeal = 970;
+                    break;
             }
+    
             battlePokemonHealthBar = new Rectangle(200, 300, pokemonHealth / 5, 20);
         }
 
-
-
-
         private void evolveButton_Click(object sender, EventArgs e)
-        {
+        {        
             if (gameState == "Evolve Screen")
             {
                 if (playerMoney >= moneyRequired[i] && pokemonLv < 21)
@@ -848,12 +913,10 @@ namespace Pokemon
                 {
                     evolveButton.Enabled = false;
                 }
-
                 else
                 {
                     evolveButton.Enabled = false;
                 }
-
             }
         }
         private void exitEvolve_Click(object sender, EventArgs e)
@@ -903,25 +966,23 @@ namespace Pokemon
                     bossHealth = 1000;
                     bossAtk = 400;
                     bossSpAtk = 500;
-                    bossHeal = 600;
+                    bossHeal = 400;
                     break;
                 case 2:
                     battleBoss.Image = boss2;
-                    bossCurrentHealthX -= 100;
                     battleBossHealthBar = new Rectangle(bossCurrentHealthX, 100, (bossHealth / 5), 20);
                     bossHealth = 1500;
                     bossAtk = 600;
-                    bossSpAtk = 600;
-                    bossHeal = 800;
+                    bossSpAtk = 1000;
+                    bossHeal = 500;
                     break;
                 case 3:
                     battleBoss.Image = boss3;
-                    bossCurrentHealthX -= 100;
                     battleBossHealthBar = new Rectangle(bossCurrentHealthX, 100, (bossHealth / 5), 20);
                     bossHealth = 2000;
-                    bossAtk = 1000;
-                    bossSpAtk = 1300;
-                    bossHeal = 500;
+                    bossAtk = 800;
+                    bossSpAtk = 1200;
+                    bossHeal = 600;
                     break;
             }
         }
@@ -958,15 +1019,10 @@ namespace Pokemon
             playerFightingResult();
             Refresh();
             checkWinCondition();
-            cpuTurn();
-            
-            
-
-            
+            cpuTurn();     
         }
         private void cpuTurn()
         {
-
             computerChoice();
             computerFightingResult();
             Refresh();
@@ -1091,6 +1147,7 @@ namespace Pokemon
             cooldownNotice.Visible = false; 
 
             gameState = "End Screen";
+            Thread.Sleep(2000);
         }
 
         private void checkWinCondition()
@@ -1103,6 +1160,7 @@ namespace Pokemon
                 pokemonHealthLabel.Text = "0";
                 resultBattleLabel.Text = "You Loss";
                 Thread.Sleep(500);
+                pokemonLvChecking();
                 resultBattleLabel.Text = " ";
                 gameLoop.Enabled = false;
                 InitializeMainScreen();
@@ -1110,7 +1168,6 @@ namespace Pokemon
 
             if (gameState == "Battle Screen" && bossHealth <= 0 && bossCounter == 1)
             {
-                pokemonLvChecking();
                 bossHealth = 0;
                 bossHealthLabel.Text = "0";
                 resultBattleLabel.Text = "Next Boss";
@@ -1124,7 +1181,6 @@ namespace Pokemon
 
             if (gameState == "Battle Screen" && bossHealth <= 0 && bossCounter == 2)
             {
-                pokemonLvChecking();
                 bossHealth = 0;
                 bossHealthLabel.Text = "0";
                 battleBoss.Image = boss3;
@@ -1137,10 +1193,8 @@ namespace Pokemon
 
             if (gameState == "Battle Screen" && bossHealth <= 0 && bossCounter == 3)
             {
-                pokemonLvChecking();
                 bossHealth = 0;
                 bossHealthLabel.Text = "0";
-                battleBossHealthBar = new Rectangle(350, 100, 0, 20);
                 resultBattleLabel.Text = "You Win";
                 Thread.Sleep(500);
                 resultBattleLabel.Text = " ";
@@ -1178,7 +1232,6 @@ namespace Pokemon
 
                 e.Graphics.DrawImage(playerHouse, house);
                 e.Graphics.DrawString($"{playerName}  LV:{pokemonLv}\nCoins:{playerMoney}", drawFont, blackBrush, 20, 30);
-
             }
 
             else if (gameState == "Arena Screen")

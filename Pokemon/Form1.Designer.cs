@@ -41,6 +41,8 @@
             this.pokemonHealthLabel = new System.Windows.Forms.Label();
             this.bossHealthLabel = new System.Windows.Forms.Label();
             this.resultBattleLabel = new System.Windows.Forms.Label();
+            this.pTurn = new System.Windows.Forms.Label();
+            this.cooldownNotice = new System.Windows.Forms.Label();
             this.spAttackButton = new System.Windows.Forms.Button();
             this.healButton = new System.Windows.Forms.Button();
             this.attackButton = new System.Windows.Forms.Button();
@@ -55,8 +57,7 @@
             this.pikachu = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
-            this.pTurn = new System.Windows.Forms.Label();
-            this.cooldownNotice = new System.Windows.Forms.Label();
+            this.playAgainLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pokemonPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerPreview)).BeginInit();
             this.SuspendLayout();
@@ -107,7 +108,6 @@
             this.battlePokemon.Name = "battlePokemon";
             this.battlePokemon.Size = new System.Drawing.Size(263, 235);
             this.battlePokemon.TabIndex = 46;
-            this.battlePokemon.Text = "Ballz";
             // 
             // battleBoss
             // 
@@ -137,7 +137,7 @@
             // 
             this.bossHealthLabel.AutoSize = true;
             this.bossHealthLabel.BackColor = System.Drawing.Color.Transparent;
-            this.bossHealthLabel.Location = new System.Drawing.Point(820, 137);
+            this.bossHealthLabel.Location = new System.Drawing.Point(628, 102);
             this.bossHealthLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.bossHealthLabel.Name = "bossHealthLabel";
             this.bossHealthLabel.Size = new System.Drawing.Size(0, 16);
@@ -152,6 +152,32 @@
             this.resultBattleLabel.Name = "resultBattleLabel";
             this.resultBattleLabel.Size = new System.Drawing.Size(0, 31);
             this.resultBattleLabel.TabIndex = 49;
+            // 
+            // pTurn
+            // 
+            this.pTurn.AutoSize = true;
+            this.pTurn.BackColor = System.Drawing.Color.Transparent;
+            this.pTurn.Font = new System.Drawing.Font("Nirmala UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pTurn.Location = new System.Drawing.Point(91, 258);
+            this.pTurn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pTurn.Name = "pTurn";
+            this.pTurn.Size = new System.Drawing.Size(85, 25);
+            this.pTurn.TabIndex = 50;
+            this.pTurn.Text = "Your Turn";
+            this.pTurn.Visible = false;
+            // 
+            // cooldownNotice
+            // 
+            this.cooldownNotice.AutoSize = true;
+            this.cooldownNotice.BackColor = System.Drawing.Color.Transparent;
+            this.cooldownNotice.Font = new System.Drawing.Font("Nirmala UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cooldownNotice.Location = new System.Drawing.Point(891, 396);
+            this.cooldownNotice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.cooldownNotice.Name = "cooldownNotice";
+            this.cooldownNotice.Size = new System.Drawing.Size(134, 25);
+            this.cooldownNotice.TabIndex = 51;
+            this.cooldownNotice.Text = "On Cool Down";
+            this.cooldownNotice.Visible = false;
             // 
             // spAttackButton
             // 
@@ -313,37 +339,24 @@
             this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
-            // pTurn
+            // playAgainLabel
             // 
-            this.pTurn.AutoSize = true;
-            this.pTurn.BackColor = System.Drawing.Color.Transparent;
-            this.pTurn.Font = new System.Drawing.Font("Nirmala UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pTurn.Location = new System.Drawing.Point(91, 287);
-            this.pTurn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.pTurn.Name = "pTurn";
-            this.pTurn.Size = new System.Drawing.Size(85, 25);
-            this.pTurn.TabIndex = 50;
-            this.pTurn.Text = "Your Turn";
-            this.pTurn.Visible = false;
-            // 
-            // cooldownNotice
-            // 
-            this.cooldownNotice.AutoSize = true;
-            this.cooldownNotice.BackColor = System.Drawing.Color.Transparent;
-            this.cooldownNotice.Font = new System.Drawing.Font("Nirmala UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cooldownNotice.Location = new System.Drawing.Point(890, 396);
-            this.cooldownNotice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.cooldownNotice.Name = "cooldownNotice";
-            this.cooldownNotice.Size = new System.Drawing.Size(134, 25);
-            this.cooldownNotice.TabIndex = 51;
-            this.cooldownNotice.Text = "On Cool Down";
-            this.cooldownNotice.Visible = false;
+            this.playAgainLabel.AutoSize = true;
+            this.playAgainLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playAgainLabel.Location = new System.Drawing.Point(317, 248);
+            this.playAgainLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.playAgainLabel.Name = "playAgainLabel";
+            this.playAgainLabel.Size = new System.Drawing.Size(401, 27);
+            this.playAgainLabel.TabIndex = 52;
+            this.playAgainLabel.Text = "Click Start to Play Again and exit to leave";
+            this.playAgainLabel.Visible = false;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1085, 567);
+            this.Controls.Add(this.playAgainLabel);
             this.Controls.Add(this.cooldownNotice);
             this.Controls.Add(this.pTurn);
             this.Controls.Add(this.resultBattleLabel);
@@ -373,7 +386,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.RightToLeftLayout = true;
-            this.Text = "Form1";
+            this.Text = "l";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
@@ -413,6 +426,7 @@
         private System.Windows.Forms.Label resultBattleLabel;
         private System.Windows.Forms.Label pTurn;
         private System.Windows.Forms.Label cooldownNotice;
+        private System.Windows.Forms.Label playAgainLabel;
     }
 }
 

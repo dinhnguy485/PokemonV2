@@ -483,15 +483,6 @@ namespace Pokemon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream tree {
-            get {
-                return ResourceManager.GetStream("tree", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap tree1 {
@@ -518,6 +509,15 @@ namespace Pokemon.Properties {
             get {
                 object obj = ResourceManager.GetObject("tree3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream treeHitSound {
+            get {
+                return ResourceManager.GetStream("treeHitSound", resourceCulture);
             }
         }
         

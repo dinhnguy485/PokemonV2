@@ -274,7 +274,7 @@
   <data name="spAttackSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\spAttackSound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tree" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="treeHitSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tree.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
