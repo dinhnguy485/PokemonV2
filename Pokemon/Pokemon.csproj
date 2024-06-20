@@ -290,15 +290,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\mainScreenMusic.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\openingMusic.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\fightingMusic.wav" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\normalFootstep.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -319,7 +310,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\grassFootstep.wav" />
+    <None Include="Resources\grassFootstep.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\healSound.wav">
@@ -327,12 +320,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\levelUpSound.wav">
+    <None Include="Resources\openDoor.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fighting.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\openDoor.wav" />
+    <None Include="Resources\openingTheme.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\levelUpSound.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

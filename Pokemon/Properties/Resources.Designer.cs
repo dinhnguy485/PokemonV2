@@ -259,6 +259,16 @@ namespace Pokemon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] fighting {
+            get {
+                object obj = ResourceManager.GetObject("fighting", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap forest {
@@ -380,6 +390,16 @@ namespace Pokemon.Properties {
         internal static System.IO.UnmanagedMemoryStream openDoor {
             get {
                 return ResourceManager.GetStream("openDoor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] openingTheme {
+            get {
+                object obj = ResourceManager.GetObject("openingTheme", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

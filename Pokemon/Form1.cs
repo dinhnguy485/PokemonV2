@@ -22,21 +22,16 @@ namespace Pokemon
 
     public partial class Form1 : Form
     {
+        //Sound properties
         System.Windows.Media.MediaPlayer normalAtkSound;
         System.Windows.Media.MediaPlayer chestCollectSound;
-        System.Windows.Media.MediaPlayer grassStepSound;
+        System.Windows.Media.MediaPlayer grassStepSound =new System.Windows.Media.MediaPlayer();
         System.Windows.Media.MediaPlayer healSound;
         System.Windows.Media.MediaPlayer levelUpSound;
-        System.Windows.Media.MediaPlayer normalStepSound;
         System.Windows.Media.MediaPlayer openDoorSound;
         System.Windows.Media.MediaPlayer spAtkSound;
         System.Windows.Media.MediaPlayer treeHitSound;
-
-
-
-
-
-
+        System.Windows.Media.MediaPlayer battleMusic;
 
 
         //Player
@@ -80,6 +75,7 @@ namespace Pokemon
         Image HouseInteriorImg = Properties.Resources.houseInterior;
         Image vendingMachineImg = Properties.Resources.evolveMachine;
 
+        //images
         Image[] pokemonsList = { Properties.Resources.pikachu, Properties.Resources.squirtle, Properties.Resources.charmander, Properties.Resources.bulbasaur };
         Image grassImg = Properties.Resources.bg;
         Image forrestImg = Properties.Resources.forest;
@@ -94,8 +90,9 @@ namespace Pokemon
 
         Image evolveScreenBg = Properties.Resources.evolveScreen;
 
-        Rectangle actualChest = new Rectangle(20, 50, 30, 20);
 
+        //Rectangles
+        Rectangle actualChest = new Rectangle(20, 50, 30, 20);
         Rectangle battleBossHealthBar = new Rectangle();
         Rectangle battlePokemonHealthBar = new Rectangle();
         Rectangle house = new Rectangle(480, 100, 230, 200);
@@ -103,15 +100,14 @@ namespace Pokemon
         Rectangle houseInterior = new Rectangle(200, -20, 400, 500);
         Rectangle exitDoor = new Rectangle(310, 450, 45, 10);
         Rectangle vendingMachine = new Rectangle(250, 100, 40, 70);
-
         Rectangle houseWall = new Rectangle(500, 240, 200, 58);
         Rectangle houseWallInterior1 = new Rectangle(220, -20, 10, 500);
         Rectangle houseWallInterior2 = new Rectangle(190, 100, 400, 10);
         Rectangle houseWallInterior3 = new Rectangle(570, -20, 10, 500);
         Rectangle houseWallInterior4 = new Rectangle(200, 440, 110, 10);
         Rectangle houseWallInterior5 = new Rectangle(355, 440, 215, 10);
-
         Rectangle arenaWall = new Rectangle(295, 147, 200, 150);
+
 
         //Grass and Arena
         Rectangle grass = new Rectangle(0, 0, 1000, 600);
@@ -175,6 +171,8 @@ namespace Pokemon
         public Form1()
         {
             InitializeComponent();
+            //Menu Screen
+            InitializeMenuScreen();
             InitializeGameScreen();
             battleBossHealthBar = new Rectangle(350, 100, bossHealth / 5, 20);
             battlePokemonHealthBar = new Rectangle(200, 300, pokemonHealth / 5, 20);
@@ -185,6 +183,7 @@ namespace Pokemon
         }
 
 
+        //PLayer movement keydown
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -204,11 +203,19 @@ namespace Pokemon
                 case Keys.Space:
                     if (gameState == "End Screen")
                     {
+                        InitializeMenuScreen();
+                    }
+                    break;
+                case Keys.Escape:
+                    if(gameState == "End Screen")
+                    {
+                        Application.Exit();
                     }
                     break;
             }
         }
 
+        //player movement keydown
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -228,6 +235,7 @@ namespace Pokemon
             }
         }
 
+        //player movement
         public void PlayerMovement()
         {
             Rectangle newPlayerPosition = player1;
@@ -244,18 +252,22 @@ namespace Pokemon
 
             if (wPressed && newPlayerPosition.Y > 0)
             {
+                playGrassSound();
                 newPlayerPosition.Y -= player1Speed;
                 isMoving = true;
                 playerDirection = Direction.Up; //Update direction
             }
             if (sPressed && newPlayerPosition.Y < this.Height - 80)
             {
+                playGrassSound();
                 newPlayerPosition.Y += player1Speed;
                 isMoving = true;
                 playerDirection = Direction.Down;
             }
             if (aPressed && newPlayerPosition.X > 0)
             {
+                playGrassSound();
+
                 newPlayerPosition.X -= player1Speed;
 
                 if (player1.X < player1.Width && gameState == "Arena Screen")
@@ -270,6 +282,7 @@ namespace Pokemon
             }
             if (dPressed)
             {
+                playGrassSound();
                 newPlayerPosition.X += player1Speed;
                 isMoving = true;
                 playerDirection = Direction.Right;
@@ -303,6 +316,8 @@ namespace Pokemon
             }
         }
 
+
+        //player moving images
         private Image[] GetCurrentDirectionImages()
         {
             switch (playerDirection)
@@ -321,6 +336,7 @@ namespace Pokemon
         }
 
 
+        // draw the hitbox trees in the map
         private void obstacleHitBoxSpawn()
         {
             Rectangle treeHitBox1 = new Rectangle(48, 119, 45, 27);
@@ -343,6 +359,7 @@ namespace Pokemon
             treesHitBoxList.Add(treeHitBox9);
         }
 
+        // draw the trees in the map
         private void obstacleSpawn()
         {
             Rectangle tree1 = new Rectangle(32, 50, 75, 100);
@@ -382,14 +399,18 @@ namespace Pokemon
                 }
             }
         }
+
+        //stop the player from going through the trees
         private void obstacleCollision()
         {
             if (gameState == "Main Screen")
             {
                 for (int i = 0; i < treesHitBoxList.Count; i++)
                 {
+                    playTreeHitSound();
                     if (player1.IntersectsWith(treesHitBoxList[i]))
                     {
+                        //playTreeHitSound();
                         if (wPressed == true)
                         {
                             player1.Y += player1Speed;
@@ -411,11 +432,13 @@ namespace Pokemon
             }
         }
 
+        //exit the program when 
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        //startButton event, move to the menu screen.
         private void startButton_Click(object sender, EventArgs e)
         {
             InitializePokemonChoosingScreen();
@@ -424,6 +447,7 @@ namespace Pokemon
             exitButton.Visible = false;
         }
 
+        //POKEMON SELECTION
         private void pikachu_Click(object sender, EventArgs e)
         {
             pokemonPreview.Image = pokemonsList[0];
@@ -444,6 +468,7 @@ namespace Pokemon
             pokemonPreview.Image = pokemonsList[1];
         }
 
+        //continue to the main game screen
         private void continueButton_Click(object sender, EventArgs e)
         {   
             InitializeMainScreen();
@@ -477,13 +502,16 @@ namespace Pokemon
             this.Focus();
         }
 
+        //reset the player's stats when the game is replay
         public void InitializeMenuScreen()
         {
             pokemonLv = 0;
             playerMoney = 0;
-
-
-
+            exitButton.Visible = true;
+            playAgainLabel.Visible = false;
+            startButton.Visible = true;
+            battlePokemon.Visible = false;            
+            this.BackgroundImage = Properties.Resources.forest;
         }
 
         public void InitializeGameScreen()
@@ -508,6 +536,7 @@ namespace Pokemon
             battlePokemon.Visible = false;
         }
 
+        //hide all the buttons and label when player is in the main game screen
         public void InitializeMainScreen()
         {
             resultBattleLabel.Visible = false;
@@ -525,7 +554,6 @@ namespace Pokemon
             pTurn.Visible = false;
             cooldownNotice.Visible = false;
             gameState = "Main Screen";
-            ///////////////////////////////
             exitButton.Visible = false;
             playAgainLabel.Visible = false;
             startButton.Visible = false;
@@ -537,38 +565,77 @@ namespace Pokemon
             obstacleHitBoxSpawn();
             chestSpawn();
 
-            //player1.X = 578;
-            //player1.Y = 300;
+            player1.X = 578;
+            player1.Y = 300;
 
             gameLoop.Enabled = true;
             this.Focus();
         }
 
-        //public void playNormalAtkSound()
-        //{
-        //    normalAtkSound = new System.Windows.Media.MediaPlayer();
-        //    normalAtkSound.Open(new Uri(Application.StartupPath + "/Resources/attackSound.wav"));
-        //    normalAtkSound.Play();
-        //}
+        //all the methods that play sounds
+        public void playNormalAtkSound()
+        {
+            normalAtkSound = new System.Windows.Media.MediaPlayer();
+            normalAtkSound.Open(new Uri(Application.StartupPath + "/Resources/attackSound.wav"));
+            normalAtkSound.Play();
+        }
 
-        //public void playChestSound()
-        //{
-        //    chestCollectSound = new System.Windows.Media.MediaPlayer();
-        //    normalAtkSound.Open(new Uri(Application.StartupPath + "/Resources/chest.wav"));
-        //    normalAtkSound.Play();
-        //}
-        //public void playGrassSound()
-        //{
-        //    normalAtkSound = new System.Windows.Media.MediaPlayer();
-        //    normalAtkSound.Open(new Uri(Application.StartupPath + "/Resources/attackSound.wav"));
-        //    normalAtkSound.Play();
-        //}
-        //public void healSound()
-        //{
-        //    normalAtkSound = new System.Windows.Media.MediaPlayer();
-        //    normalAtkSound.Open(new Uri(Application.StartupPath + "/Resources/attackSound.wav"));
-        //    normalAtkSound.Play();
-        //}
+        public void playChestSound()
+        {
+            chestCollectSound = new System.Windows.Media.MediaPlayer();
+            chestCollectSound.Open(new Uri(Application.StartupPath + "/Resources/coin.wav"));
+            chestCollectSound.Play();
+        }
+
+        public void playGrassSound()
+        {
+            grassStepSound = new System.Windows.Media.MediaPlayer();
+            grassStepSound.Open(new Uri(Application.StartupPath + "/Resources/grassFootstep.wav"));
+            grassStepSound.Play();
+        }
+
+        public void playBattleSound()
+        {
+            battleMusic = new System.Windows.Media.MediaPlayer();
+            battleMusic.Open(new Uri(Application.StartupPath + "/Resources/fighting.mp3"));
+            battleMusic.Play();
+        }
+
+
+        public void playHealSound()
+        {
+            healSound = new System.Windows.Media.MediaPlayer();
+            healSound.Open(new Uri(Application.StartupPath + "/Resources/healSound.wav"));
+            healSound.Play();
+        }
+
+        public void playLevelUpSound()
+        {
+            levelUpSound = new System.Windows.Media.MediaPlayer();
+            levelUpSound.Open(new Uri(Application.StartupPath + "/Resources/levelUpSound.wav"));
+            levelUpSound.Play();
+        }
+
+        public void playOpenDoorSound()
+        {
+            openDoorSound = new System.Windows.Media.MediaPlayer();
+            openDoorSound.Open(new Uri(Application.StartupPath + "/Resources/openDoor.wav"));
+            openDoorSound.Play();
+        }
+
+        public void playSpAtkSound()
+        {
+            spAtkSound = new System.Windows.Media.MediaPlayer();
+            spAtkSound.Open(new Uri(Application.StartupPath + "/Resources/spAttackSound.wav"));
+            spAtkSound.Play();
+        }
+
+        public void playTreeHitSound()
+        {
+            treeHitSound = new System.Windows.Media.MediaPlayer();
+            treeHitSound.Open(new Uri(Application.StartupPath + "/Resources/tree.wav"));
+            treeHitSound.Play();
+        }
 
         public void InitializeEvolveScreen()
         {
@@ -594,6 +661,7 @@ namespace Pokemon
             playerNameInput.Visible = true;
         }
 
+        //spawn the chest
         private void chestSpawn()
         {
             if (gameState == "Main Screen")
@@ -626,6 +694,8 @@ namespace Pokemon
                 chestList.Add(chest13);
             }
         }
+
+        //player intersect with the chest
         private void chestCollision()
         {
             int chestRand = randGen.Next(0, chestList.Count);
@@ -633,16 +703,20 @@ namespace Pokemon
 
             if (gameState == "Main Screen" && player1.IntersectsWith(actualChest))
             {
+                playChestSound();
                 actualChest.X = chestList[chestRand].X;
                 actualChest.Y = chestList[chestRand].Y;
                 playerMoney += loot;
             }
         }
+
+        //player intersect with the door and it move to the store
         private void doorCollision()
         {
             if (gameState == "Main Screen" && player1.IntersectsWith(door))
             {
                 gameState = "House Interior";
+                playOpenDoorSound();
                 player1.X = 317;
                 player1.Y = 380;
 
@@ -679,6 +753,7 @@ namespace Pokemon
             }
         }
 
+        //a hitbox that stop the player from going through the house
         private void houseCollision()
         {
             if (gameState == "Main Screen" && player1.IntersectsWith(houseWall))
@@ -701,6 +776,8 @@ namespace Pokemon
                 }
             }
         }
+
+        //a hitbox that stop the player from going through the arena
         private void arenaCollision()
         {
             if (gameState == "Arena Screen" && player1.IntersectsWith(arenaWall))
@@ -723,6 +800,9 @@ namespace Pokemon
                 }
             }
         }
+
+        //a hitbox that stop the player from going through the store
+
         private void InteriorCollision()
         {
             if (gameState == "House Interior" && player1.IntersectsWith(houseWallInterior1))
@@ -762,6 +842,7 @@ namespace Pokemon
             }
         }
 
+        //pokemon's stats for every lv
         private void pokemonLvChecking()
         {
             switch (pokemonLv)
@@ -897,12 +978,15 @@ namespace Pokemon
             battlePokemonHealthBar = new Rectangle(200, 300, pokemonHealth / 5, 20);
         }
 
+
+        //lv up pokemon lV
         private void evolveButton_Click(object sender, EventArgs e)
         {        
             if (gameState == "Evolve Screen")
             {
                 if (playerMoney >= moneyRequired[i] && pokemonLv < 21)
                 {
+                    playLevelUpSound();
                     pokemonLv++;
                     pokemonLvChecking();
                     playerMoney -= moneyRequired[i];
@@ -919,6 +1003,8 @@ namespace Pokemon
                 }
             }
         }
+
+        //get the player to the store when button is clicked
         private void exitEvolve_Click(object sender, EventArgs e)
         {
             gameState = "House Interior";
@@ -927,6 +1013,8 @@ namespace Pokemon
             exitEvolve.Visible = false;
             this.Focus();
         }
+
+        //move the player to the battle screen when they intersect with the arena
         private void arenaEnterCollision()
         {
             if (gameState == "Arena Screen" && player1.IntersectsWith(enterArena))
@@ -936,8 +1024,10 @@ namespace Pokemon
             }
         }
 
+        //Initialize for fighitng screen
         private void InitializeBattleScreen()
         {
+            playBattleSound();
             pokemonLvChecking();
             gameState = "Battle Screen";
             battlePokemon.Image = playerPokemon;
@@ -987,16 +1077,17 @@ namespace Pokemon
             }
         }
 
+        //player choice
         private void attackButton_Click(object sender, EventArgs e)
         {
             playerChoice = "Normal Attack";
+            playNormalAtkSound();
             playerTurn();
-        }
-
-        
+        }      
         private void healButton_Click(object sender, EventArgs e)
         {
             playerChoice = "Heal";
+            playHealSound();
             playerTurn();
         }
 
@@ -1005,6 +1096,7 @@ namespace Pokemon
             if (!playerSpAttackOnCooldown)
             {
                 playerChoice = "Special Attack";
+                playSpAtkSound();
                 playerSpAttackOnCooldown = true;
                 playerTurnCount = 0;  // Reset cooldown counter for player
                 playerTurn();
@@ -1079,6 +1171,7 @@ namespace Pokemon
             Thread.Sleep(500);
         }
 
+        //player fighting results based on what they chose
         public void playerFightingResult()
         {
             pTurn.Visible = false;
@@ -1108,6 +1201,7 @@ namespace Pokemon
             Thread.Sleep(1000);
         }
 
+        //cpu fighting results based on what they chose
         public void computerFightingResult()
         {
 
@@ -1129,6 +1223,8 @@ namespace Pokemon
             battlePokemonHealthBar = new Rectangle(200, 300, pokemonHealth / 5, 20);
             Thread.Sleep(1000);
         }
+
+        //the end screen
         public void InitializeEndScreen()
         {
             bossHealthLabel.Visible = false;
@@ -1148,8 +1244,10 @@ namespace Pokemon
 
             gameState = "End Screen";
             Thread.Sleep(2000);
+            playAgainLabel.Visible = true;
         }
 
+        //w
         private void checkWinCondition()
         {
             if (gameState == "Battle Screen" && pokemonHealth <= 0)
@@ -1297,7 +1395,6 @@ namespace Pokemon
                 e.Graphics.DrawImage(winImg, grass);
             }
         }
-
         private void gameLoop_Tick(object sender, EventArgs e)
         {
             PlayerMovement();
