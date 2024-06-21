@@ -331,7 +331,9 @@
     <None Include="Resources\openingTheme.mp3" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\levelUpSound.wav" />
+    <None Include="Resources\levelUpSound.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

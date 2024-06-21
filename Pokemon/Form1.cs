@@ -1,4 +1,8 @@
-﻿using Pokemon.Properties;
+﻿//20th June 2024
+//Tri's and Ayush Patel's project
+//Pokemon Game
+//ISC3U Mr.T
+using Pokemon.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,15 +21,14 @@ using System.IO;
 
 namespace Pokemon
 {
-    //Add Play again button 
-    //Add Exit button
 
-    public partial class Form1 : Form
+
+    public partial class MainForm : Form
     {
         //Sound properties
         System.Windows.Media.MediaPlayer normalAtkSound;
         System.Windows.Media.MediaPlayer chestCollectSound;
-        System.Windows.Media.MediaPlayer grassStepSound =new System.Windows.Media.MediaPlayer();
+        System.Windows.Media.MediaPlayer grassStepSound = new System.Windows.Media.MediaPlayer();
         System.Windows.Media.MediaPlayer healSound;
         System.Windows.Media.MediaPlayer levelUpSound;
         System.Windows.Media.MediaPlayer openDoorSound;
@@ -63,7 +66,7 @@ namespace Pokemon
         List<Rectangle> chestList = new List<Rectangle>();
 
         //Money Lists
-        int[] moneyRequired = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 0 };
+        int[] moneyRequired = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200,210, 0 };
         int i = 0;
 
         //trees Images
@@ -139,7 +142,7 @@ namespace Pokemon
         int bossHeal = 600;
         int bossCounter = 1;
 
-        int playerMoney = 100000000;
+        int playerMoney = 100;
         int bossCurrentHealthX = 370;
 
         //Setup for Battle
@@ -168,11 +171,10 @@ namespace Pokemon
         bool aPressed = false;
         bool dPressed = false;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             //Menu Screen
-            InitializeMenuScreen();
             InitializeGameScreen();
             battleBossHealthBar = new Rectangle(350, 100, bossHealth / 5, 20);
             battlePokemonHealthBar = new Rectangle(200, 300, pokemonHealth / 5, 20);
@@ -204,10 +206,11 @@ namespace Pokemon
                     if (gameState == "End Screen")
                     {
                         InitializeMenuScreen();
+                        gameState = "Start Screen";
                     }
                     break;
                 case Keys.Escape:
-                    if(gameState == "End Screen")
+                    if (gameState == "End Screen")
                     {
                         Application.Exit();
                     }
@@ -407,10 +410,9 @@ namespace Pokemon
             {
                 for (int i = 0; i < treesHitBoxList.Count; i++)
                 {
-                    playTreeHitSound();
                     if (player1.IntersectsWith(treesHitBoxList[i]))
                     {
-                        //playTreeHitSound();
+                        playTreeHitSound();
                         if (wPressed == true)
                         {
                             player1.Y += player1Speed;
@@ -470,7 +472,7 @@ namespace Pokemon
 
         //continue to the main game screen
         private void continueButton_Click(object sender, EventArgs e)
-        {   
+        {
             InitializeMainScreen();
             InitializeGameScreen();
             gameLoop.Enabled = true;
@@ -505,12 +507,24 @@ namespace Pokemon
         //reset the player's stats when the game is replay
         public void InitializeMenuScreen()
         {
+            gameState = "Start Screen";
             pokemonLv = 0;
+            i = 1;
+            evolveButton.Enabled = true;
+            pokemonLvChecking();
+            pokemonHealth = 120;
+            pokemonAtk = 130;
+            pokemonSpAtk = 150;
+            pokemonHeal = 160;
             playerMoney = 0;
             exitButton.Visible = true;
             playAgainLabel.Visible = false;
             startButton.Visible = true;
-            battlePokemon.Visible = false;            
+            battlePokemon.Visible = false;
+            bossHealthLabel.Visible = false;
+            pokemonHealthLabel.Visible = false;
+            pTurn.Visible = false; 
+            resultBattleLabel.Visible = false;
             this.BackgroundImage = Properties.Resources.forest;
         }
 
@@ -583,7 +597,7 @@ namespace Pokemon
         public void playChestSound()
         {
             chestCollectSound = new System.Windows.Media.MediaPlayer();
-            chestCollectSound.Open(new Uri(Application.StartupPath + "/Resources/coin.wav"));
+            chestCollectSound.Open(new Uri(Application.StartupPath + "/Resources/coins.wav"));
             chestCollectSound.Play();
         }
 
@@ -597,7 +611,7 @@ namespace Pokemon
         public void playBattleSound()
         {
             battleMusic = new System.Windows.Media.MediaPlayer();
-            battleMusic.Open(new Uri(Application.StartupPath + "/Resources/fighting.mp3"));
+            battleMusic.Open(new Uri(Application.StartupPath + "/Resources/fightinggg.mp3"));
             battleMusic.Play();
         }
 
@@ -968,20 +982,20 @@ namespace Pokemon
                     pokemonHeal = 970;
                     break;
                 case 21:
-                    pokemonHealth = 728;
-                    pokemonAtk = 785;
-                    pokemonSpAtk = 909;
-                    pokemonHeal = 970;
+                    pokemonHealth = 1000;
+                    pokemonAtk = 850;
+                    pokemonSpAtk = 1000;
+                    pokemonHeal = 1000;
                     break;
             }
-    
+
             battlePokemonHealthBar = new Rectangle(200, 300, pokemonHealth / 5, 20);
         }
 
 
         //lv up pokemon lV
         private void evolveButton_Click(object sender, EventArgs e)
-        {        
+        {
             if (gameState == "Evolve Screen")
             {
                 if (playerMoney >= moneyRequired[i] && pokemonLv < 21)
@@ -1032,7 +1046,7 @@ namespace Pokemon
             gameState = "Battle Screen";
             battlePokemon.Image = playerPokemon;
             pokemonHealthLabel.Text = $"{pokemonHealth}";
-            bossHealthLabel.Text= $"{bossHealth}";
+            bossHealthLabel.Text = $"{bossHealth}";
 
             this.BackgroundImage = Properties.Resources.forest;
 
@@ -1083,7 +1097,7 @@ namespace Pokemon
             playerChoice = "Normal Attack";
             playNormalAtkSound();
             playerTurn();
-        }      
+        }
         private void healButton_Click(object sender, EventArgs e)
         {
             playerChoice = "Heal";
@@ -1103,7 +1117,7 @@ namespace Pokemon
             }
             else
             {
-               // MessageBox.Show("Special Attack is on cooldown!");
+                // MessageBox.Show("Special Attack is on cooldown!");
             }
         }
         private void playerTurn()
@@ -1111,7 +1125,7 @@ namespace Pokemon
             playerFightingResult();
             Refresh();
             checkWinCondition();
-            cpuTurn();     
+            cpuTurn();
         }
         private void cpuTurn()
         {
@@ -1143,7 +1157,7 @@ namespace Pokemon
             pTurn.Visible = true;
             battleBossHealthBar = new Rectangle(bossCurrentHealthX, 100, (bossHealth / 5), 20);
 
-            int randValue = randGen.Next(1, 100 );
+            int randValue = randGen.Next(1, 100);
             if (cpuSpAttackOnCooldown && randValue < 60)
             {
                 cpuChoice = "Normal Attack";
@@ -1162,7 +1176,7 @@ namespace Pokemon
             {
                 cpuChoice = "Special Attack";
                 cpuSpAttackOnCooldown = true;
-                cpuTurnCount = 0;  
+                cpuTurnCount = 0;
             }
             else
             {
@@ -1238,9 +1252,9 @@ namespace Pokemon
             spAttackButton.Enabled = false;
 
             battleBoss.Visible = false;
-            battlePokemon.Location = new Point (this.Width / 2, this.Height / 2);
-            pTurn.Visible = false;  
-            cooldownNotice.Visible = false; 
+            battlePokemon.Location = new Point(this.Width / 2, this.Height / 2);
+            pTurn.Visible = false;
+            cooldownNotice.Visible = false;
 
             gameState = "End Screen";
             Thread.Sleep(2000);
@@ -1318,7 +1332,7 @@ namespace Pokemon
             {
                 e.Graphics.Clear(Color.White);
                 e.Graphics.DrawImage(grassImg, grass);
-                
+
                 e.Graphics.DrawImage(GetCurrentDirectionImages()[player1FrameIndex], player1);
 
                 for (int i = 0; i < treesList.Count; i++)
@@ -1338,7 +1352,7 @@ namespace Pokemon
                 e.Graphics.DrawImage(grassImg, grass);
                 e.Graphics.DrawImage(GetCurrentDirectionImages()[player1FrameIndex], player1);
                 e.Graphics.DrawImage(plantArena, grassArena);
-                e.Graphics.DrawString($"LV:{pokemonLv}\nCoins:{playerMoney}", drawFont, blackBrush, 20, 30);    
+                e.Graphics.DrawString($"LV:{pokemonLv}\nCoins:{playerMoney}", drawFont, blackBrush, 20, 30);
             }
 
             else if (gameState == "House Interior")
@@ -1361,7 +1375,7 @@ namespace Pokemon
                 e.Graphics.DrawString($"${playerMoney}", drawFont, blackBrush, 670, 50);
                 e.Graphics.DrawString($"{actualPokemon}", drawFont, blackBrush, 120, 50);
 
-                
+
                 if (pokemonLv < 21)
                 {
                     e.Graphics.DrawString($"${moneyRequired[i]}", drawFont, blackBrush, 550, 283);
@@ -1371,28 +1385,34 @@ namespace Pokemon
                 e.Graphics.DrawString("Cost Per Evolution: ", drawFont, blackBrush, 100, 283);
                 e.Graphics.DrawImage(playerPokemon, pokemonPicEvolve);
 
-                if (playerMoney < moneyRequired[i] && pokemonLv < 21)
+                if (i < moneyRequired.Length)
                 {
-                    e.Graphics.DrawString($"${moneyRequired[i]}", drawFont, redBrush, 550, 283);
+                    if (playerMoney < moneyRequired[i] && pokemonLv < 21)
+                    {
+                        e.Graphics.DrawString($"${moneyRequired[i]}", drawFont, redBrush, 550, 283);
+                    }
                 }
+
                 else
                 {
                     evolveButton.Enabled = true;
                 }
-                if(pokemonLv == 21)
+                if (pokemonLv == 21)
                 {
                     e.Graphics.DrawString("Pokemon Maxed", drawFont, blackBrush, 550, 283);
                     e.Graphics.DrawString($"Lvl: Max", drawFont, blackBrush, 505, 50);
                 }
             }
-            else if(gameState == "Battle Screen")
+            else if (gameState == "Battle Screen")
             {
                 e.Graphics.FillRectangle(redBrush, battleBossHealthBar);
                 e.Graphics.FillRectangle(redBrush, battlePokemonHealthBar);
             }
-            else if(gameState == "End Screen")
+            else if (gameState == "End Screen")
             {
+                e.Graphics.Clear(Color.White);
                 e.Graphics.DrawImage(winImg, grass);
+                titleLabel.Image = Properties.Resources.Pokemon_Sign;
             }
         }
         private void gameLoop_Tick(object sender, EventArgs e)
@@ -1401,7 +1421,7 @@ namespace Pokemon
             doorCollision();
             obstacleCollision();
             houseCollision();
-            arenaCollision();   
+            arenaCollision();
             InteriorCollision();
             chestCollision();
             arenaEnterCollision();

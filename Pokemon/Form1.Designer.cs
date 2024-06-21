@@ -1,6 +1,6 @@
 ﻿namespace Pokemon
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.playerNameInput = new System.Windows.Forms.TextBox();
             this.characterLabel = new System.Windows.Forms.Label();
@@ -175,7 +175,7 @@
             // 
             this.spAttackButton.Image = ((System.Drawing.Image)(resources.GetObject("spAttackButton.Image")));
             this.spAttackButton.Location = new System.Drawing.Point(698, 342);
-            this.spAttackButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.spAttackButton.Margin = new System.Windows.Forms.Padding(2);
             this.spAttackButton.Name = "spAttackButton";
             this.spAttackButton.Size = new System.Drawing.Size(142, 73);
             this.spAttackButton.TabIndex = 44;
@@ -186,7 +186,7 @@
             // 
             this.healButton.Image = ((System.Drawing.Image)(resources.GetObject("healButton.Image")));
             this.healButton.Location = new System.Drawing.Point(544, 342);
-            this.healButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.healButton.Margin = new System.Windows.Forms.Padding(2);
             this.healButton.Name = "healButton";
             this.healButton.Size = new System.Drawing.Size(150, 73);
             this.healButton.TabIndex = 43;
@@ -197,7 +197,7 @@
             // 
             this.attackButton.Image = ((System.Drawing.Image)(resources.GetObject("attackButton.Image")));
             this.attackButton.Location = new System.Drawing.Point(399, 342);
-            this.attackButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.attackButton.Margin = new System.Windows.Forms.Padding(2);
             this.attackButton.Name = "attackButton";
             this.attackButton.Size = new System.Drawing.Size(141, 73);
             this.attackButton.TabIndex = 42;
@@ -332,7 +332,7 @@
             this.playAgainLabel.Text = "Click Start to Play Again and exit to leave";
             this.playAgainLabel.Visible = false;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -364,10 +364,11 @@
             this.Controls.Add(this.titleLabel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "MainForm";
             this.RightToLeftLayout = true;
-            this.Text = "l";
+            this.Text = "Pokemon_Game";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
